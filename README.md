@@ -53,4 +53,6 @@ db/
 │  ├─ 20221203055037_create_accounts.rb
 ├─ schema.rb
 ├─ seeds.rb
+spec/
+├─ <All tests are here...>
 ```
