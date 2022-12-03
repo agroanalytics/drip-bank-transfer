@@ -12,8 +12,10 @@ module BankTransfer
 
       def transfer
         transfer_strategy.new(@transfer).perform_transfer
-      rescue ActiveRecord::RecordNotFound, BankTransfer::Services::InvalidOperationException,
-             BankTransfer::Services::Strategies::Steps::InvalidWalletOperation, BankTransfer::Services::Strategies::Constraints::InvalidAmount, BankTransfer::Services::Strategies::Steps::InvalidWalletOperation => e
+      rescue ActiveRecord::RecordNotFound,
+             BankTransfer::Services::InvalidOperationException,
+             BankTransfer::Services::Strategies::Steps::InvalidWalletOperation,
+             BankTransfer::Services::Strategies::Constraints::InvalidAmount => e
         raise InvalidOperationException, e.message
       end
 
