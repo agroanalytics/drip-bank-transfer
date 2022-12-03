@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module MoneyTransferService
     class MoneyTransferService
@@ -21,6 +23,7 @@ module BankTransfer
 
       def transfer_strategy
         return TransferStrategy::SameBankStrategy if accounts_from_same_bank?
+
         TransferStrategy::DifferentBankStrategy
       end
     end

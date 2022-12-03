@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Dtos
     class CreditOperation

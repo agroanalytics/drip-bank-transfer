@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Services
     module Strategies
@@ -10,10 +12,10 @@ module BankTransfer
 
         def perform_transfer
           @credit_operation = CreditCalculator
-            .new(@transfer, @operations_in_order)
-            .calculate_credit_operation
+                              .new(@transfer, @operations_in_order)
+                              .calculate_credit_operation
 
-          transfer_steps_in_order.each { |step| step.perform }
+          transfer_steps_in_order.each(&:perform)
         end
 
         private

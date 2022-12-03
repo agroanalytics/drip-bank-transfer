@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe BankTransfer::Services::Strategies::Steps::ValidateWalletOperation do
   context 'when validating wallet operation' do
-    it 'returns true if both sender and receiver accounts have positive* values at end of operation' do
+    it 'returns true if both sender and receiver accounts have positive (zero inclusive) values at end of operation' do
       sender_account_amt = 1000
       receiver_account_amt = 0
       sender_account = BankTransfer::Entities::Account.new(
@@ -29,9 +31,12 @@ describe BankTransfer::Services::Strategies::Steps::ValidateWalletOperation do
       allow(accounts_repository).to receive(:find).with('account-from-uuid').and_return sender_account
       allow(accounts_repository).to receive(:find).with('account-to-uuid').and_return receiver_account
 
-      result_1 = described_class.new(operation_with_positive_result, transfer, accounts_repository: accounts_repository).perform
-      result_2 = described_class.new(operation_with_zeroed_sender_result, transfer, accounts_repository: accounts_repository).perform
-      result_3 = described_class.new(operation_with_zeroed_receiver_result, transfer, accounts_repository: accounts_repository).perform
+      result_1 = described_class.new(operation_with_positive_result, transfer,
+                                     accounts_repository:).perform
+      result_2 = described_class.new(operation_with_zeroed_sender_result, transfer,
+                                     accounts_repository:).perform
+      result_3 = described_class.new(operation_with_zeroed_receiver_result, transfer,
+                                     accounts_repository:).perform
 
       expect(result_1).to be true
       expect(result_2).to be true
@@ -56,7 +61,8 @@ describe BankTransfer::Services::Strategies::Steps::ValidateWalletOperation do
       accounts_repository = class_double(BankTransfer::Repositories::AccountsRepository)
       allow(accounts_repository).to receive(:find).with('account-from-uuid').and_return sender_account
       allow(accounts_repository).to receive(:find).with('account-to-uuid').and_return receiver_account
-      subject = described_class.new(operation_with_negative_sender_result, transfer, accounts_repository: accounts_repository)
+      subject = described_class.new(operation_with_negative_sender_result, transfer,
+                                    accounts_repository:)
 
       expect { subject.perform }.to raise_error(RuntimeError)
     end
@@ -79,7 +85,8 @@ describe BankTransfer::Services::Strategies::Steps::ValidateWalletOperation do
       accounts_repository = class_double(BankTransfer::Repositories::AccountsRepository)
       allow(accounts_repository).to receive(:find).with('account-from-uuid').and_return sender_account
       allow(accounts_repository).to receive(:find).with('account-to-uuid').and_return receiver_account
-      subject = described_class.new(operation_with_negative_receiver_result, transfer, accounts_repository: accounts_repository)
+      subject = described_class.new(operation_with_negative_receiver_result, transfer,
+                                    accounts_repository:)
 
       expect { subject.perform }.to raise_error(RuntimeError)
     end

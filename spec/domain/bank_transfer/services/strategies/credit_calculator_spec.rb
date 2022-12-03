@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe BankTransfer::Services::Strategies::CreditCalculator do
@@ -12,7 +14,7 @@ describe BankTransfer::Services::Strategies::CreditCalculator do
 
       result = described_class.new(transfer, operations).calculate_total_credit
 
-      expect(result.account_from).to eq -1070.0
+      expect(result.account_from).to eq(-1070.0)
       expect(result.account_to).to eq 445
     end
   end
@@ -24,7 +26,7 @@ describe BankTransfer::Services::Strategies::CreditCalculator do
 
     def perform
       result = BankTransfer::Dtos::CreditOperation.new(
-        account_from: (@credit_operation.account_from*1.02),
+        account_from: (@credit_operation.account_from * 1.02),
         account_to: @credit_operation.account_to
       )
     end

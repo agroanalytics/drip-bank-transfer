@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe BankTransfer::Services::Strategies::Constraints::TransferAmountValid do

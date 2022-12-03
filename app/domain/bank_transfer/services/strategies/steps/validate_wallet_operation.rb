@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Services
     module Strategies
@@ -21,8 +23,8 @@ module BankTransfer
 
           def valid_wallet_operation?
             # Total credit values can be either positive or negative, thus summing always will do the correct math
-            return false if account_from.amount + @credit_operation.account_from < 0
-            return false if account_to.amount + @credit_operation.account_to < 0
+            return false if (account_from.amount + @credit_operation.account_from).negative?
+            return false if (account_to.amount + @credit_operation.account_to).negative?
 
             true
           end

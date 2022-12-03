@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -11,9 +13,9 @@ module Drip
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.autoload_paths += %W(#{config.root}/domain/bank_transfer/entities)
-    config.autoload_paths += %W(#{config.root}/domain/bank_transfer/services)
-    config.autoload_paths += %W(#{config.root}/domain/bank_transfer/repositories)
+    config.autoload_paths += %W[#{config.root}/domain/bank_transfer/entities]
+    config.autoload_paths += %W[#{config.root}/domain/bank_transfer/services]
+    config.autoload_paths += %W[#{config.root}/domain/bank_transfer/repositories]
 
     # Configuration for the application, engines, and railties goes here.
     #

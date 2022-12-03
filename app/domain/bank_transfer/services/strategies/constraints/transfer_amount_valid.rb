@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Services
     module Strategies
@@ -10,7 +12,7 @@ module BankTransfer
           end
 
           def valid?
-            if @transfer_dto.amount_to_transfer > MAXIMUM_AMOUNT_IN_REAIS || @transfer_dto.amount_to_transfer < 0
+            if @transfer_dto.amount_to_transfer > MAXIMUM_AMOUNT_IN_REAIS || @transfer_dto.amount_to_transfer.negative?
               raise('Transfer amount greater than allowed')
             end
 

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Services
     module Strategies
       module Steps
         class PerformAccountTransfer
-          def initialize(transfer, credit_operation, overrides = {})
+          def initialize(transfer, credit_operation, _overrides = {})
             @credit_operation = credit_operation
             @transfer = transfer
             @accounts_repository = BankTransfer::Repositories::AccountsRepository

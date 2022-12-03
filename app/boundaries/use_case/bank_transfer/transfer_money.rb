@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module UseCase
   module BankTransfer
     class TransferMoney
-      def initialize(account_from_id, account_to_id, amount_to_transfer)
+      def initialize(_account_from_id, _account_to_id, _amount_to_transfer)
         @money_transfer_service = overrides.fetch(:money_transfer_service) do
           BankTransfer::Services::MoneyTransferService
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BankTransfer
   module Services
     module Strategies
@@ -16,6 +18,7 @@ module BankTransfer
 
           def valid_constraints?
             return true if @constraints.empty?
+
             @constraints.map { |constraint| constraint.new(@transfer).valid? }.all?
           end
         end
