@@ -22,7 +22,7 @@ module BankTransfer
 
         class InvalidAmount < StandardError
           def initialize
-            message = "Transfer amount greater than allowed"
+            message = 'Transfer amount greater than allowed'
             super(message)
           end
         end

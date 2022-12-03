@@ -12,8 +12,9 @@ module BankTransfer
 
       def transfer
         transfer_strategy.new(@transfer).perform_transfer
-      rescue ActiveRecord::RecordNotFound, BankTransfer::Services::InvalidOperationException, BankTransfer::Services::Strategies::Steps::InvalidWalletOperation, BankTransfer::Services::Strategies::Constraints::InvalidAmount, BankTransfer::Services::Strategies::Steps::InvalidWalletOperation => e
-        raise InvalidOperationException.new(e.message)
+      rescue ActiveRecord::RecordNotFound, BankTransfer::Services::InvalidOperationException,
+             BankTransfer::Services::Strategies::Steps::InvalidWalletOperation, BankTransfer::Services::Strategies::Constraints::InvalidAmount, BankTransfer::Services::Strategies::Steps::InvalidWalletOperation => e
+        raise InvalidOperationException, e.message
       end
 
       private
@@ -27,6 +28,7 @@ module BankTransfer
 
       def transfer_strategy
         return same_bank_strategy if accounts_from_same_bank?
+
         different_bank_strategy
       end
 
