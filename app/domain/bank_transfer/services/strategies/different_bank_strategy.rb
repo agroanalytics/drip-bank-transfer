@@ -4,13 +4,13 @@ module BankTransfer
   module Services
     module Strategies
       class DifferentBankStrategy < BaseTransferStrategy
-        def initialize(transfer_dto)
-          super
+        def initialize(transfer, overrides = {})
+          super(transfer, overrides)
           @constraints = [
-            Constraints::LimitShouldBeLowerThan5000
+            Constraints::TransferAmountValid
           ]
           @operations_in_order = [
-            Operations::DeductComissionOperation
+            Operations::DeductFixedAmountFromSenderOperation
           ]
         end
       end

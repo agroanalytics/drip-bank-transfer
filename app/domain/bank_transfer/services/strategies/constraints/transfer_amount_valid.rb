@@ -13,10 +13,17 @@ module BankTransfer
 
           def valid?
             if @transfer_dto.amount_to_transfer > MAXIMUM_AMOUNT_IN_REAIS || @transfer_dto.amount_to_transfer.negative?
-              raise('Transfer amount greater than allowed')
+              raise InvalidAmount
             end
 
             true
+          end
+        end
+
+        class InvalidAmount < StandardError
+          def initialize
+            message = "Transfer amount greater than allowed"
+            super(message)
           end
         end
       end

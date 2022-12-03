@@ -12,7 +12,7 @@ module BankTransfer
           end
 
           def perform
-            result = CreditOperation.new(
+            result = BankTransfer::Dtos::CreditOperation.new(
               account_from: (@credit_operation.account_from - AMOUNT_TO_DEDUCT_IN_REAIS),
               account_to: @credit_operation.account_to
             )

@@ -27,7 +27,7 @@ describe BankTransfer::Services::Strategies::Constraints::TransferAmountValid do
         amount_to_transfer: -1
       )
 
-      expect { described_class.new(transfer).valid? }.to raise_error(RuntimeError)
+      expect { described_class.new(transfer).valid? }.to raise_error(invalid_amount_exception)
     end
 
     it 'throws an exception when amount is greater than 5000' do
@@ -37,7 +37,13 @@ describe BankTransfer::Services::Strategies::Constraints::TransferAmountValid do
         amount_to_transfer: 5000.1
       )
 
-      expect { described_class.new(transfer).valid? }.to raise_error(RuntimeError)
+      expect { described_class.new(transfer).valid? }.to raise_error(invalid_amount_exception)
     end
+  end
+
+  private
+
+  def invalid_amount_exception
+    BankTransfer::Services::Strategies::Constraints::InvalidAmount
   end
 end

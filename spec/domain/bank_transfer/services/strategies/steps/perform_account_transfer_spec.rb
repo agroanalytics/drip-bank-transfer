@@ -12,8 +12,8 @@ describe BankTransfer::Services::Strategies::Steps::PerformAccountTransfer do
       receiver_account = BankTransfer::Entities::Account.create(customer_id: sender.id, amount: 500)
       transfer = instance_double(
         BankTransfer::Dtos::Transfer,
-        account_id_from: sender_account.id,
-        account_id_to: receiver_account.id,
+        account_from_id: sender_account.id,
+        account_to_id: receiver_account.id,
         amount_to_transfer: 595
       )
       credit_operation = BankTransfer::Dtos::CreditOperation.new(

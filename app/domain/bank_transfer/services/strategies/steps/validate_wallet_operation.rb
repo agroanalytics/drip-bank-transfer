@@ -5,16 +5,16 @@ module BankTransfer
     module Strategies
       module Steps
         class ValidateWalletOperation
-          def initialize(credit_operation, transfer, overrides = {})
-            @credit_operation = credit_operation
+          def initialize(transfer, credit_operation, overrides = {})
             @transfer = transfer
+            @credit_operation = credit_operation
             @accounts_repository = overrides.fetch(:accounts_repository) do
-              BankTransfer::Repositories::AccountRepository
+              BankTransfer::Repositories::AccountsRepository
             end
           end
 
           def perform
-            raise('Invalid operation due to insuficient money amount') unless valid_wallet_operation?
+            raise InvalidWalletOperation unless valid_wallet_operation?
 
             true
           end
@@ -30,11 +30,18 @@ module BankTransfer
           end
 
           def account_from
-            @account_from ||= @accounts_repository.find(@transfer.account_id_from)
+            @account_from ||= @accounts_repository.find(@transfer.account_from_id)
           end
 
           def account_to
-            @account_to ||= @accounts_repository.find(@transfer.account_id_to)
+            @account_to ||= @accounts_repository.find(@transfer.account_to_id)
+          end
+        end
+
+        class InvalidWalletOperation < StandardError
+          def initialize
+            message = 'Invalid operation due to insuficient money amount'
+            super(message)
           end
         end
       end

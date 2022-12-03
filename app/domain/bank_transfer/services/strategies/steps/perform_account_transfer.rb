@@ -6,8 +6,8 @@ module BankTransfer
       module Steps
         class PerformAccountTransfer
           def initialize(transfer, credit_operation, _overrides = {})
-            @credit_operation = credit_operation
             @transfer = transfer
+            @credit_operation = credit_operation
             @accounts_repository = BankTransfer::Repositories::AccountsRepository
           end
 
@@ -30,11 +30,11 @@ module BankTransfer
           end
 
           def account_from
-            @account_from ||= @accounts_repository.find(@transfer.account_id_from)
+            @account_from ||= @accounts_repository.find(@transfer.account_from_id)
           end
 
           def account_to
-            @account_to ||= @accounts_repository.find(@transfer.account_id_to)
+            @account_to ||= @accounts_repository.find(@transfer.account_to_id)
           end
         end
       end
