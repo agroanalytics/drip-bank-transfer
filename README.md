@@ -2,6 +2,23 @@
 
 ## Drip Challange
 by Renan Kataoka
+
+### Testing
+You can use the seeded users for testing on the remote environment provided below:
+
+<img width="1144" alt="image" src="https://user-images.githubusercontent.com/34048664/205466193-3d2677e7-8de9-41c2-ac2f-9a2256a446d8.png">
+
+Request example:
+```sh
+curl --location --request POST 'https://powerful-reef-70806.herokuapp.com/api/v1/transfer-money' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "account_from_id": "2c417271-dd4c-457e-8999-62e517f8c7a5",
+    "account_to_id": "5961e855-e08e-45af-a973-05130a960a69",
+    "amount": 40
+}'
+```
+
 ### Folder Structure
 
 The folder structure below contains all files that were created and are important for this project.
