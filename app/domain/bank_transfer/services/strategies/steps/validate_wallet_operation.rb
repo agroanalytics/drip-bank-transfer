@@ -37,13 +37,6 @@ module BankTransfer
             @account_to ||= @accounts_repository.find(@transfer.account_to_id)
           end
         end
-
-        class InvalidWalletOperation < StandardError
-          def initialize
-            message = 'Invalid operation due to insuficient money amount'
-            super(message)
-          end
-        end
       end
     end
   end

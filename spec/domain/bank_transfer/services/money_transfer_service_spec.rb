@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+RSpec::Matchers.define_negated_matcher :not_change, :change
+
 describe BankTransfer::Services::MoneyTransferService, type: :unit do
   context 'when transfering money' do
     let(:account_from_id) { 'account_from_id' }
@@ -17,7 +19,7 @@ describe BankTransfer::Services::MoneyTransferService, type: :unit do
           sender_customer = instance_double(BankTransfer::Entities::Customer, bank_id: 'BB-uuid')
           receiver_customer = instance_double(BankTransfer::Entities::Customer, bank_id: 'Nubank-uuid')
           account_from = instance_double(BankTransfer::Entities::Account, customer: sender_customer,
-                                                                          id: account_from_id)
+                                                                        id: account_from_id)
           account_to = instance_double(BankTransfer::Entities::Account, customer: receiver_customer, id: account_to_id)
           different_bank_strategy = instance_double(different_bank_strategy_klass, perform_transfer: true)
           allow(accounts_repository).to receive(:find).with(account_from_id).and_return(account_from)
@@ -67,7 +69,7 @@ describe BankTransfer::Services::MoneyTransferService, type: :unit do
       it 'throws an InvalidOperationException' do
         transfer = BankTransfer::Dtos::Transfer.new(account_from_id:, account_to_id:,
                                                     amount_to_transfer:)
-        account_from = instance_double(BankTransfer::Entities::Account, id: account_from_id)
+        account_from = instance_double(BankTransfer::Entities::Account, id: account_from_id, customer: spy('customer'))
         allow(accounts_repository).to receive(:find).with(account_from_id).and_return(account_from)
         allow(accounts_repository).to receive(:find).with(account_to_id).and_raise(ActiveRecord::RecordNotFound)
 
@@ -108,7 +110,7 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
       end
 
       context 'and sender has less than the required money amount' do
-        it 'does not perform transfer operation & raises InvalidWalletOperation' do
+        it 'does not perform transfer operation & raises InvalidOperationException' do
           account_from = bb_customer_with_1000_reais_on_account.account
           account_to = bb_customer_with_2_reais_on_account.account
           amount_to_transfer = 1000.01
@@ -117,7 +119,10 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
           subject = described_class.new(transfer)
 
-          expect { subject.transfer }.to raise_error(BankTransfer::Services::InvalidOperationException)
+          expect { subject.transfer }
+            .to raise_error(BankTransfer::Services::InvalidOperationException)
+            .and not_change(account_from, :amount)
+            .and not_change(account_to, :amount)
         end
       end
     end
@@ -140,7 +145,7 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
         end
 
         context 'and money amount is greater than the limit allowed' do
-          it 'does not perform transfer operation & raises InvalidAmount' do
+          it 'does not perform transfer operation & raises InvalidOperationException' do
             account_from = bb_customer_with_6000_reais_on_account.account
             account_to = nubank_customer_with_500_reais_on_account.account
             amount_to_transfer = 5000.01
@@ -149,13 +154,16 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
             subject = described_class.new(transfer)
 
-            expect { subject.transfer }.to raise_error(BankTransfer::Services::InvalidOperationException)
+            expect { subject.transfer }
+              .to raise_error(BankTransfer::Services::InvalidOperationException)
+              .and not_change(account_from, :amount)
+              .and not_change(account_to, :amount)
           end
         end
       end
 
       context 'and sender has less than the required money amount, including taxes' do
-        it 'does not perform transfer operation & raises InvalidWalletOperation' do
+        it 'does not perform transfer operation & raises InvalidOperationException' do
           account_from = bb_customer_with_1000_reais_on_account.account
           account_to = nubank_customer_with_500_reais_on_account.account
           amount_to_transfer = 996
@@ -164,7 +172,10 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
           subject = described_class.new(transfer)
 
-          expect { subject.transfer }.to raise_error(BankTransfer::Services::InvalidOperationException)
+          expect { subject.transfer }
+            .to raise_error(BankTransfer::Services::InvalidOperationException)
+            .and not_change(account_from, :amount)
+            .and not_change(account_to, :amount)
         end
       end
     end

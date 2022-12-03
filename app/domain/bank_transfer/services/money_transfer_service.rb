@@ -11,20 +11,16 @@ module BankTransfer
       end
 
       def transfer
-        transfer_strategy.new(@transfer).perform_transfer
+        [account_from, account_to] if transfer_strategy.new(@transfer).perform_transfer
       rescue ActiveRecord::RecordNotFound,
-             BankTransfer::Services::InvalidOperationException,
-             BankTransfer::Services::Strategies::Steps::InvalidWalletOperation,
-             BankTransfer::Services::Strategies::Constraints::InvalidAmount => e
+             ::BankTransfer::Services::Strategies::Steps::InvalidWalletOperation,
+             ::BankTransfer::Services::Strategies::Constraints::InvalidAmount => e
         raise InvalidOperationException, e.message
       end
 
       private
 
       def accounts_from_same_bank?
-        account_from = @accounts_repository.find(@transfer.account_from_id)
-        account_to = @accounts_repository.find(@transfer.account_to_id)
-
         account_from.customer.bank_id == account_to.customer.bank_id
       end
 
@@ -40,6 +36,14 @@ module BankTransfer
 
       def different_bank_strategy
         BankTransfer::Services::Strategies::DifferentBankStrategy
+      end
+
+      def account_from
+        @account_from ||= @accounts_repository.find(@transfer.account_from_id)
+      end
+
+      def account_to
+        @account_to ||= @accounts_repository.find(@transfer.account_to_id)
       end
     end
 

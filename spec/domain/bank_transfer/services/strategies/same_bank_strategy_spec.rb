@@ -33,8 +33,8 @@ describe BankTransfer::Services::Strategies::SameBankStrategy do
 
       expect(credit_calculator_klass).to have_received(:new).with(transfer, [])
       expect(validate_constraints_klass).to have_received(:new).with(transfer, [])
-      expect(validate_wallet_operation_klass).to have_received(:new).with(credit_operation, transfer)
-      expect(perform_account_transfer_klass).to have_received(:new).with(credit_operation, transfer)
+      expect(validate_wallet_operation_klass).to have_received(:new).with(transfer, credit_operation)
+      expect(perform_account_transfer_klass).to have_received(:new).with(transfer, credit_operation)
     end
   end
 

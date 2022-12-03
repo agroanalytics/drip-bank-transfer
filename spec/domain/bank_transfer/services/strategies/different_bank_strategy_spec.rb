@@ -37,8 +37,8 @@ describe BankTransfer::Services::Strategies::DifferentBankStrategy do
       expect(validate_constraints_klass).to have_received(:new).with(transfer, [
                                                                        BankTransfer::Services::Strategies::Constraints::TransferAmountValid
                                                                      ])
-      expect(validate_wallet_operation_klass).to have_received(:new).with(credit_operation, transfer)
-      expect(perform_account_transfer_klass).to have_received(:new).with(credit_operation, transfer)
+      expect(validate_wallet_operation_klass).to have_received(:new).with(transfer, credit_operation)
+      expect(perform_account_transfer_klass).to have_received(:new).with(transfer, credit_operation)
     end
   end
 
