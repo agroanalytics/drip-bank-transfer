@@ -22,6 +22,8 @@ module BankTransfer
           private
 
           def valid_wallet_operation?
+            return false if account_from.id == account_to.id
+
             # Total credit values can be either positive or negative, thus summing always will do the correct math
             return false if (account_from.amount + @credit_operation.account_from).negative?
             return false if (account_to.amount + @credit_operation.account_to).negative?
