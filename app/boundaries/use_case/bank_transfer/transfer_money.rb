@@ -18,9 +18,9 @@ module UseCase
 
       def to_dto(account_from_id, account_to_id, amount_to_transfer)
         ::BankTransfer::Dtos::Transfer.new(
-          account_from_id: account_from_id,
-          account_to_id: account_to_id,
-          amount_to_transfer: amount_to_transfer
+          account_from_id:,
+          account_to_id:,
+          amount_to_transfer:
         )
       end
     end

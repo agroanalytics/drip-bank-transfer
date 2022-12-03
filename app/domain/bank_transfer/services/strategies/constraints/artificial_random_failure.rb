@@ -10,7 +10,7 @@ module BankTransfer
           def initialize(_); end
 
           def valid?
-            raise SystemFailure if (Rails.env != 'test' && fail?)
+            raise SystemFailure if Rails.env != 'test' && fail?
 
             true
           end

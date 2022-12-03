@@ -20,7 +20,7 @@ describe BankTransfer::Services::MoneyTransferService, type: :unit do
           sender_customer = instance_double(BankTransfer::Entities::Customer, bank_id: 'BB-uuid')
           receiver_customer = instance_double(BankTransfer::Entities::Customer, bank_id: 'Nubank-uuid')
           account_from = instance_double(BankTransfer::Entities::Account, customer: sender_customer,
-                                                                        id: account_from_id)
+                                                                          id: account_from_id)
           account_to = instance_double(BankTransfer::Entities::Account, customer: receiver_customer, id: account_to_id)
           different_bank_strategy = instance_double(different_bank_strategy_klass, perform_transfer: true)
           allow(accounts_repository).to receive(:find).with(account_from_id).and_return(account_from)

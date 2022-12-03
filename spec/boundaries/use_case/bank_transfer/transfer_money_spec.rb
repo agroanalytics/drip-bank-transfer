@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe UseCase::BankTransfer::TransferMoney do
@@ -13,9 +15,9 @@ describe UseCase::BankTransfer::TransferMoney do
       allow(transfer_dto_klass)
         .to receive(:new)
         .with(
-          account_from_id: account_from_id,
-          account_to_id: account_to_id,
-          amount_to_transfer: amount_to_transfer
+          account_from_id:,
+          account_to_id:,
+          amount_to_transfer:
         ).and_return(transfer_dto)
       allow(money_transfer_service_klass)
         .to receive(:new)
