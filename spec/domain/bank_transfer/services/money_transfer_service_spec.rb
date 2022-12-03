@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+ENV['RAILS_ENV'] = 'test'
 require 'rails_helper'
 
 RSpec::Matchers.define_negated_matcher :not_change, :change

@@ -35,7 +35,8 @@ describe BankTransfer::Services::Strategies::DifferentBankStrategy do
                                                                     BankTransfer::Services::Strategies::Operations::DeductFixedAmountFromSenderOperation
                                                                   ])
       expect(validate_constraints_klass).to have_received(:new).with(transfer, [
-                                                                       BankTransfer::Services::Strategies::Constraints::TransferAmountValid
+                                                                       BankTransfer::Services::Strategies::Constraints::TransferAmountValid,
+                                                                       BankTransfer::Services::Strategies::Constraints::ArtificialRandomFailure
                                                                      ])
       expect(validate_wallet_operation_klass).to have_received(:new).with(transfer, credit_operation)
       expect(perform_account_transfer_klass).to have_received(:new).with(transfer, credit_operation)
