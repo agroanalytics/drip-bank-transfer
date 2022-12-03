@@ -7,7 +7,8 @@ module BankTransfer
         def initialize(transfer, overrides = {})
           super(transfer, overrides)
           @constraints = [
-            Constraints::TransferAmountValid
+            Constraints::TransferAmountValid,
+            Constraints::ArtificialRandomFailure
           ]
           @operations_in_order = [
             Operations::DeductFixedAmountFromSenderOperation
