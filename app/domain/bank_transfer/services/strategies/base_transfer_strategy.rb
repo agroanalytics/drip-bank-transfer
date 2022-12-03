@@ -1,18 +1,17 @@
-module UseCase
-  module Drip
-    module TransferStrategy
+module BankTransfer
+  module Services
+    module Strategies
       class BaseTransferStrategy
-        def initialize(transfer_dto)
-          @transfer_dto = transfer_dto
-          @account_repository = AccountRepository
+        def initialize(transfer)
+          @transfer = transfer
           @constraints = []
           @operations_in_order = []
         end
 
-        def transfer
-          @total_credit = CreditCalculator
-            .new(@transfer_dto, @operations_in_order)
-            .calculate_total_credit
+        def perform_transfer
+          @credit_operation = CreditCalculator
+            .new(@transfer, @operations_in_order)
+            .calculate_credit_operation
 
           transfer_steps_in_order.each { |step| step.perform }
         end
@@ -21,9 +20,9 @@ module UseCase
 
         def transfer_steps_in_order
           [
-            ValidateConstraints.new(@transfer_dto, @constraints),
-            ValidateWalletOperation.new(@total_credit, @transfer_dto),
-            PerformAccountTransfer.new(@total_credit, @transfer_dto)
+            ValidateConstraints.new(@transfer, @constraints),
+            ValidateWalletOperation.new(@credit_operation, @transfer),
+            PerformAccountTransfer.new(@credit_operation, @transfer)
           ]
         end
       end
