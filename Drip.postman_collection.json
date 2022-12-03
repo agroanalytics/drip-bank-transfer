@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"account_from_id\": \"0c3c8e15-c39b-414a-86d0-f7899c2e8998\",\n    \"account_to_id\": \"c89f663d-b653-4e83-b403-9427c3ab43b7\",\n    \"amount\": 1\n}",
+					"raw": "{\n    \"account_from_id\": \"2c417271-dd4c-457e-8999-62e517f8c7a5\",\n    \"account_to_id\": \"5961e855-e08e-45af-a973-05130a960a69\",\n    \"amount\": 40\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -51,12 +51,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/transfer-money",
-					"protocol": "http",
+					"raw": "https://powerful-reef-70806.herokuapp.com/api/v1/transfer-money",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"powerful-reef-70806",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
