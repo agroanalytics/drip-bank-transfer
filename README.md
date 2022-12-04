@@ -27,6 +27,7 @@ docker-compose up
 There is a Postman collection (Drip.postman_collection.json) in this project so you can use it as an example to test the App. Note that you'll have to use the UUIDs for the accounts that were generated on your environment
 
 You can take a look at the available data by running:
+
 ```sh
 docker-compose run web bundle exec rake data:show
 ```
