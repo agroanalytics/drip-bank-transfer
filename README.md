@@ -10,12 +10,10 @@ by Renan Kataoka
 docker-compose build
 ```
 
-3. Seed database with example data
+3. Create & seed database with example data
 
 ```sh
-docker-compose up db
-docker-compose run web bundle exec rake db:create db:migrate
-docker-compose run web bundle exec rake db:seed
+docker-compose run web bundle exec rake db:create db:migrate db:seed
 ```
 
 3. Run project
@@ -27,6 +25,11 @@ docker-compose up
 4. Test
 
 There is a Postman collection (Drip.postman_collection.json) in this project so you can use it as an example to test the App. Note that you'll have to use the UUIDs for the accounts that were generated on your environment
+
+You can take a look at the available data by running:
+```sh
+docker-compose run web bundle exec rake data:show
+```
 
 ### Running automated tests
 
