@@ -3,7 +3,38 @@
 ## Drip Challange
 by Renan Kataoka
 
-### Testing
+### Running locally with Docker
+1. Build project
+
+```sh
+docker-compose build
+```
+
+3. Seed database with example data
+
+```sh
+docker-compose up db
+docker-compose run web bundle exec rake db:create db:migrate
+docker-compose run web bundle exec rake db:seed
+```
+
+3. Run project
+
+```sh
+docker-compose up
+```
+
+4. Test
+
+There is a Postman collection (Drip.postman_collection.json) in this project so you can use it as an example to test the App. Note that you'll have to use the UUIDs for the accounts that were generated on your environment
+
+### Running automated tests
+
+```sh
+docker-compose run web bundle exec rspec
+```
+
+### Testing remotely
 You can use the seeded users for testing on the remote environment provided below:
 
 <img width="1144" alt="image" src="https://user-images.githubusercontent.com/34048664/205466193-3d2677e7-8de9-41c2-ac2f-9a2256a446d8.png">
