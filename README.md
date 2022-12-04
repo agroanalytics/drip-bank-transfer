@@ -32,7 +32,7 @@ You can take a look at the available data by running:
 docker-compose run web bundle exec rake data:show
 ```
 
-### Running automated tests
+### Running automated tests (there are a lot of them)
 
 ```sh
 docker-compose run web bundle exec rspec
@@ -43,7 +43,8 @@ You can use the seeded users for testing on the remote environment provided belo
 
 <img width="1144" alt="image" src="https://user-images.githubusercontent.com/34048664/205466193-3d2677e7-8de9-41c2-ac2f-9a2256a446d8.png">
 
-Request example:
+Request example to transfer amount between accounts:
+
 ```sh
 curl --location --request POST 'https://powerful-reef-70806.herokuapp.com/api/v1/transfer-money' \
 --header 'Content-Type: application/json' \
@@ -53,6 +54,14 @@ curl --location --request POST 'https://powerful-reef-70806.herokuapp.com/api/v1
     "amount": 40
 }'
 ```
+
+Transfer history:
+
+```sh
+curl --location --request GET 'https://powerful-reef-70806.herokuapp.com/api/v1/wallets'
+```
+
+Visual remote DB (only for authorized people): https://app.trevor.io/datasources/cda2ae09-d0ec-4bca-9ff2-ae744551bf62#v=165e5ba1-d81c-401c-9a98-0651563b13a5
 
 ### Folder Structure
 
