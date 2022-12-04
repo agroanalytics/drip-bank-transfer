@@ -2,9 +2,7 @@
 
 module BankTransfer
   module Entities
-    class Customer < ActiveRecord::Base
-      has_one :account
-      belongs_to :bank
+    class Wallet < ActiveRecord::Base
     end
   end
 end

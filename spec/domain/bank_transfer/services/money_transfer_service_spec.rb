@@ -107,6 +107,8 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
           expect(bb_customer_with_1000_reais_on_account.account.reload.amount).to eq 0.02
           expect(bb_customer_with_2_reais_on_account.account.reload.amount).to eq 1001.98
+          expect(wallet_registry_from(account_from.id)).to eq -999.98
+          expect(wallet_registry_from(account_to.id)).to eq 999.98
         end
       end
 
@@ -142,6 +144,9 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
             expect(bb_customer_with_1000_reais_on_account.account.reload.amount).to eq 5
             expect(nubank_customer_with_500_reais_on_account.account.reload.amount).to eq 1490
+            expect(wallet_registry_from(account_from.id)).to eq -995
+            expect(wallet_registry_from(account_to.id)).to eq 990
+            expect(wallet_registry_from(account_from.customer.bank_id)).to eq 5
           end
         end
 
@@ -228,5 +233,9 @@ describe BankTransfer::Services::MoneyTransferService, type: :integration do
 
   def nubank_bank
     @nubank_bank ||= BankTransfer::Entities::Bank.create(name: 'NuBank')
+  end
+
+  def wallet_registry_from(entity_id)
+    BankTransfer::Entities::Wallet.find_by(entity_id: entity_id).amount
   end
 end

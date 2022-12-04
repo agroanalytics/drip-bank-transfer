@@ -6,7 +6,7 @@ module BankTransfer
       module Constraints
         class SystemFailure < StandardError
           def initialize
-            message = 'System failed'
+            message = 'System failed. Try again in a few seconds'
             super(message)
           end
         end

@@ -66,6 +66,49 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET /wallets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/wallets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /wallets (Remote)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://powerful-reef-70806.herokuapp.com/api/v1/wallets",
+					"protocol": "https",
+					"host": [
+						"powerful-reef-70806",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"wallets"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

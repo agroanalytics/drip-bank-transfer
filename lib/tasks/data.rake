@@ -4,6 +4,7 @@ namespace :data do
     BankTransfer::Entities::Account.all.each do |acc|
       el = {
         customer_name: acc.customer.name,
+        bank_name: acc.customer.bank.name,
         account_id: acc.id,
         amount: acc.amount.to_s
       }
